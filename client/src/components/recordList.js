@@ -1,9 +1,10 @@
 import React, { Component } from "react";
 import axios from 'axios';
+import { Link } from "react-router-dom";
+import './recordList.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEdit } from '@fortawesome/free-solid-svg-icons'
 import { faTrashAlt } from '@fortawesome/free-solid-svg-icons'
-import { Link } from "react-router-dom";
 
 // const editIcon = 
 
@@ -73,7 +74,7 @@ export default class RecordList extends Component {
   // This following section will display the table with the records of individuals.
   render() {
     return (
-      <div>
+      <div className="container">
         <h3>Record List</h3>
         <table className="table table-striped" style={{ marginTop: 20 }}>
           <thead>
