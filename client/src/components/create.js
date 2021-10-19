@@ -95,7 +95,7 @@ export default class Create extends Component {
             />
           </div>
           <div className="form-group">
-            <label>Revenuee: </label>
+            <label>Revenue: </label>
             <input
               type="text"
               className="form-control"
@@ -153,7 +153,7 @@ export default class Create extends Component {
           <div className="form-group">
             <input
               type="submit"
-              value="Create person"
+              value="Create record"
               className="btn btn-primary"
             />
           </div>
