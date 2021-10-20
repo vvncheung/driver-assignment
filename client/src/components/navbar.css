@@ -15,10 +15,12 @@
   align-items: center;
   justify-content: space-between;
   z-index: -2; 
-  height: 120px;
+  height: 90px;
   color: #FFFFFF;
   padding-left: 1.5em;
   padding-right: 1.5em;
+  background-color: #404040;
+  border-bottom: thin solid #404040;
 }
 
 .title {
@@ -29,10 +31,11 @@
   /* text-transform: uppercase; */
 }
 
-a {
+.title a {
   color: #3c6c8c;
   text-decoration: none;
 }
+
 .createNewRecordButton {
   background: #3c6c8c;
   backface-visibility: hidden;
