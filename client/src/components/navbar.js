@@ -1,37 +1,29 @@
 import React from "react";
-import "bootstrap/dist/css/bootstrap.css";
-import "./navbar.css";
 import { NavLink } from "react-router-dom";
+import './navbar.css'
+// import "bootstrap/dist/css/bootstrap.css";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faPlus } from '@fortawesome/free-solid-svg-icons'
  
 export default function Navbar() {
   return (
-    <div>
+    <div className="navContainer">
+
+        
       <nav className="navbar navbar-expand-lg navbar-light bg-light">
-        <NavLink className="navbar-brand" to="/">
-          Driver Assignment App
-        </NavLink>
-        <button
-          className="navbar-toggler"
-          type="button"
-          data-toggle="collapse"
-          data-target="#navbarSupportedContent"
-          aria-controls="navbarSupportedContent"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-          <span className="navbar-toggler-icon"></span>
-        </button>
- 
-        <div className="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul className="navbar-nav ml-auto">
-            <li className="nav-item">
-              <NavLink className="nav-link" to="/create">
-                Create Record
+        <div className="title">
+          <NavLink className="navbar-brand" to="/">
+            Driver Assignment App
+          </NavLink>
+        </div>
+
+        <div>
+            <NavLink className="nav-link" to="/create">
+            <button className="createNewRecordButton"><FontAwesomeIcon icon={faPlus}/> &nbsp;Add record </button>
               </NavLink>
-            </li>
-          </ul>
         </div>
       </nav>
+
     </div>
   );
 };

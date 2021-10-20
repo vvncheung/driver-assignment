@@ -1,18 +1,18 @@
 import React, { Component } from "react";
-import axios from 'axios';
+import { useState, useEffect } from "react";
+import axios from "axios";
+import { Link } from "react-router-dom";
+import './recordList.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEdit } from '@fortawesome/free-solid-svg-icons'
 import { faTrashAlt } from '@fortawesome/free-solid-svg-icons'
-import { Link } from "react-router-dom";
-
-// const editIcon = 
 
 const Record = (props) => (
   <tr>
     <td>{props.record.description}</td>
-    <td>{props.record.revenue}</td>
-    <td>{props.record.cost}</td>
-    <td>
+    <td className="revenue">{props.record.revenue}</td>
+    <td className="cost">{props.record.cost}</td>
+    <td className="actionButtons">
       <Link to={"/edit/" + props.record._id}><FontAwesomeIcon icon={faEdit}/></Link> &nbsp;
       <a
         href="/"
@@ -25,6 +25,14 @@ const Record = (props) => (
     </td>
   </tr>
 );
+
+// export default function RecordList(props) {
+
+
+//   return {
+
+//   }
+// }
 
 export default class RecordList extends Component {
   // This is the constructor that shall store our data retrieved from the database
@@ -73,20 +81,76 @@ export default class RecordList extends Component {
   // This following section will display the table with the records of individuals.
   render() {
     return (
-      <div>
-        <h3>Record List</h3>
-        <table className="table table-striped" style={{ marginTop: 20 }}>
-          <thead>
-            <tr>
-              <th>Description</th>
-              <th>Revenue</th>
-              <th>Cost</th>
-              <th>Action</th>
-            </tr>
-          </thead>
-          <tbody>{this.recordList()}</tbody>
-        </table>
+      <div className="container">
+
+        <div className="unAssignedRecordsContainer">
+          <h3>Unassigned Orders</h3>
+          <table className="content-table">
+            <thead>
+              <tr>
+                <th>Description</th>
+                <th>Revenue</th>
+                <th>Cost</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>{this.recordList()}</tbody>
+          </table>
+        </div>
+
+        <div className="assignedRecordsContainer">
+
+          <div className="assignedRecords">
+            <h3>Driver: Name</h3>
+            <table className="content-table" >
+              <thead>
+                <tr>
+                  <th>Description</th>
+                  <th>Revenue</th>
+                  <th>Cost</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>{this.recordList()}</tbody>
+            </table>
+          </div>
+
+
+          <div className="assignedRecords">
+            <h3>Driver: Name</h3>
+            <table className="content-table" >
+              <thead>
+                <tr>
+                  <th>Description</th>
+                  <th>Revenue</th>
+                  <th>Cost</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>{this.recordList()}</tbody>
+            </table>
+          </div>
+
+          <div className="assignedRecords">
+            <h3>Driver Name</h3>
+            <table className="content-table" >
+              <thead>
+                <tr>
+                  <th>Description</th>
+                  <th>Revenue</th>
+                  <th>Cost</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>{this.recordList()}</tbody>
+            </table>
+          </div>
+
+        </div>
       </div>
+
+      
+      
     );
   }
 }
