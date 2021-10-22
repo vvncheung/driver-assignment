@@ -1,4 +1,3 @@
-import React, { Component } from "react";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
@@ -62,8 +61,6 @@ export default function RecordList() {
     })
   }
 
-
-
   function createRecordsTable(array) {
      return ( 
       <><h3>Driver: {array[0].driver}</h3>
@@ -116,19 +113,6 @@ export default function RecordList() {
     return assignedListTables;
   }
 
-
-  //   console.log('after .filter', assignedRecords)
-  //   return assignedRecords.map((currentrecord) => { 
-  //     return (
-  //       <Record
-  //       record={currentrecord}
-  //       deleteRecord={deleteRecord}
-  //       key={currentrecord._id}
-  //       />
-  //       );
-  //   })
-  // }
-
   // This following section will display the table with the records of individuals.
   return (
     <>
@@ -155,20 +139,10 @@ export default function RecordList() {
       </div>
     </>
   
-      )
-      }
+  )
+}
 
-
-  // {/* //       </div> */}
-  //       </div>
-
-  //   </>
-  // )
-  //     }
-
-// recordsList to remain own list
-// 
-
+// legacy code
 // const Record = (props) => (
 //   <tr>
 //     <td>{props.record.description}</td>
