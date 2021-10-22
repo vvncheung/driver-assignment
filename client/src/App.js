@@ -39,11 +39,11 @@ export default function App()  {
     <>
       <Navbar />
       <Route exact path="/">
-        <RecordList/>
+        <RecordList />
       </Route>
       <Route path="/edit/:id" component={Edit} />
       <Route path="/create">
-         <Create />
+        <Create />
       </Route>
     </>
   );

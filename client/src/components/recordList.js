@@ -27,7 +27,6 @@ const Record = (currentrecord) => (
   </tr>
 ); 
 
-
 export default function RecordList() {
   const url = "http://localhost:5000/record/";
   const [records, setRecords] = useState([]);
@@ -43,14 +42,15 @@ export default function RecordList() {
   // This method will delete a record based on the method
   function deleteRecord(id) {
     axios.delete("http://localhost:5000/" + id).then((response) => {
-      // console.log(response.data);
-      updateData();
+      console.log(response.data);
+      setRecords(response.data);
+    updateData();
     });
   }
 
   // This method will map out the unassigned records on the table
   function unassignedList() {
-    const unassignedRecords = records.filter(record => record.driver !== 'null');
+    const unassignedRecords = records.filter(record => record.driver === 'null');
     return unassignedRecords.map((currentrecord) => { 
       return (
         <Record
@@ -62,8 +62,63 @@ export default function RecordList() {
     })
   }
 
-  // function createRecordsTable(array) {
-  //   return array.map((currentrecord) => { 
+
+
+  function createRecordsTable(array) {
+     return ( 
+      <><h3>Driver: {array[0].driver}</h3>
+          <table className="content-table">
+            <thead>
+              <tr>
+                <th>Description</th>
+                <th>Revenue</th>
+                <th>Cost</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+          <tbody>{
+          array.map((currentrecord) => { 
+            return (
+          <Record
+          record={currentrecord}
+          deleteRecord={deleteRecord}
+          key={currentrecord._id}
+          />
+          );
+        })}</tbody>
+        </table></>)
+    
+  }
+
+  // driverRecords = {
+  //   laurence: [{ ... }, { ... }],
+  //   vivian: [{ ... }],``
+  // }
+  // This method will create sets for the assigned records on their own tables
+  function assignedList() {
+    const assignedListTables = [];
+    const driverRecords = {};
+    const assignedRecords = records.filter(record => record.driver !== 'null'); //create array of orders where drivers !== 'null'
+    assignedRecords.forEach(record => {
+      if(driverRecords[record.driver]) { // if driver exists
+        driverRecords[record.driver].push(record); // push record to driver key
+      }
+      else {
+        driverRecords[record.driver] = []; // driver does not exist -> create driver key and empty value
+        driverRecords[record.driver].push(record); // push dat
+      }
+    });
+
+    let driverRecordsKeys = Object.keys(driverRecords) // creates array of keys from driverRecords
+    for (let driver of driverRecordsKeys) {
+      assignedListTables.push(createRecordsTable(driverRecords[driver]));
+    }
+    return assignedListTables;
+  }
+
+
+  //   console.log('after .filter', assignedRecords)
+  //   return assignedRecords.map((currentrecord) => { 
   //     return (
   //       <Record
   //       record={currentrecord}
@@ -72,41 +127,6 @@ export default function RecordList() {
   //       />
   //       );
   //   })
-  // }
-
-  // This method will create sets for the assigned records on their own tables
-  // function assignedList() {
-  //   const driverRecords = {};
-  //   const assignedRecords = records.filter(record => record.driver === 'null'); //create array of orders where drivers !== 'null'
-  //   assignedRecords.forEach(record => {
-  //     if(driverRecords[record.driver]) { // if driver exists
-  //       driverRecords[record.driver].push(record); // push record to driver key
-  //     }
-  //     else {
-  //       driverRecords[record.driver] = []; // driver does not exist -> create driver key and empty value
-  //       driverRecords[record.driver].push(record); // push dat
-  //     }
-  //   });
-
-  //   let driverRecordsKeys = Object.keys(driverRecords) // creates array of keys from driverRecords
-  //   for (let driver in driverRecordsKeys) {
-  //     return createRecordsTable(driverRecords[driver]);
-  //   }
-  // }
-    // driverRecords = {
-    //   laurence: [{ ... }, { ... }],
-    //   vivian: [{ ... }],``
-    // }
-    // console.log('after .filter', assignedRecords)
-    // return assignedRecords.map((currentrecord) => { 
-      // return (
-      //   <Record
-      //   record={currentrecord}
-      //   deleteRecord={deleteRecord}
-      //   key={currentrecord._id}
-      //   />
-      //   );
-    // })
   // }
 
   // This following section will display the table with the records of individuals.
@@ -130,27 +150,21 @@ export default function RecordList() {
         </div>
 
         <div className="assignedRecords">
-          {/* {assignedList()} */}
-          {/* <h3>Driver: Name</h3>
-          <table className="content-table">
-            <thead>
-              <tr>
-                <th>Description</th>
-                <th>Revenue</th>
-                <th>Cost</th>
-                <th>Action</th>
-              </tr>
-            </thead>
-          <tbody>{unassignedList()}</tbody>
-        </table> */}
-      
+          {assignedList()} 
         </div>
-        </div>
-
+      </div>
     </>
-  )
-}
+  
+      )
+      }
 
+
+  // {/* //       </div> */}
+  //       </div>
+
+  //   </>
+  // )
+  //     }
 
 // recordsList to remain own list
 // 
@@ -194,9 +208,11 @@ export default function RecordList() {
 //       });
 //   }
 
+
 //   // This method will delete a record based on the method
 //   deleteRecord(id) {
-//     axios.delete("http://localhost:5000/" + id).then((response) => {
+//     axios
+//       .delete("http://localhost:5000/" + id).then((response) => {
 //       console.log(response.data);
 //     });
 
