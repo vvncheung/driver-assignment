@@ -19,6 +19,7 @@ a:hover {
 .unAssignedRecordsContainer {
   margin-right: 5em;
   margin-left: 5em;
+  /* position:sticky;  */
 }
 
 .assignedRecordsContainer {
