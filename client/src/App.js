@@ -34,18 +34,17 @@ import RecordList from "./components/recordList";
 
 import './App.css';
 
-
 export default function App()  {
   return (
-    <div>
+    <>
       <Navbar />
       <Route exact path="/">
-        <RecordList />
+        <RecordList/>
       </Route>
       <Route path="/edit/:id" component={Edit} />
       <Route path="/create">
          <Create />
       </Route>
-    </div>
+    </>
   );
 };
