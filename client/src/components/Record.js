@@ -1,20 +1,20 @@
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faEdit } from '@fortawesome/free-solid-svg-icons'
-import { faTrashAlt } from '@fortawesome/free-solid-svg-icons'
+import { faEdit, faBars, faTrashAlt } from '@fortawesome/free-solid-svg-icons'
 
-export default function Record (currentrecord) {
+export default function Record (props) {
   return (
     <tr>
-    <td>{currentrecord.record.description}</td>
-    <td className="revenue">{currentrecord.record.revenue}</td>
-    <td className="cost">{currentrecord.record.cost}</td>
+    <td><FontAwesomeIcon icon={faBars}/></td>
+    <td>{props.record.description}</td>
+    <td className="revenue">&#x24;{props.record.revenue}</td>
+    <td className="cost">&#x24;{props.record.cost}</td>
     <td className="actionButtons">
-      <Link to={"/edit/" + currentrecord.record._id}><FontAwesomeIcon icon={faEdit}/></Link> &nbsp;
+      <Link to={"/edit/" + props.record._id}><FontAwesomeIcon icon={faEdit}/></Link> &nbsp;
       <a
         href="/"
         onClick={() => {
-          currentrecord.deleteRecord(currentrecord.record._id);
+          props.deleteRecord(props.record._id);
         }}
       >
         <FontAwesomeIcon icon={faTrashAlt}/>
