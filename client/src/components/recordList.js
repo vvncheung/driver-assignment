@@ -6,9 +6,11 @@ import './recordList.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEdit } from '@fortawesome/free-solid-svg-icons'
 import { faTrashAlt } from '@fortawesome/free-solid-svg-icons'
+import { faBars } from '@fortawesome/free-solid-svg-icons'
 
 const Record = (currentrecord) => (
   <tr>
+    <td><FontAwesomeIcon icon={faBars}/></td>
     <td>{currentrecord.record.description}</td>
     <td className="revenue">{currentrecord.record.revenue}</td>
     <td className="cost">{currentrecord.record.cost}</td>
@@ -67,6 +69,7 @@ export default function RecordList() {
           <table className="content-table">
             <thead>
               <tr>
+                <th>&nbsp;</th>
                 <th>Description</th>
                 <th>Revenue</th>
                 <th>Cost</th>
@@ -123,6 +126,7 @@ export default function RecordList() {
           <table className="content-table">
             <thead>
               <tr>
+              <th>&nbsp;</th>
                 <th>Description</th>
                 <th>Revenue</th>
                 <th>Cost</th>

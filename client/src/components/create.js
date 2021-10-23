@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import axios from 'axios';
+import './create.css'
  
 export default class Create extends Component {
   // This is the constructor that stores the data.
@@ -73,7 +74,7 @@ export default class Create extends Component {
   // This following section will display the form that takes the input from the user.
   render() {
     return (
-      <div style={{ marginTop: 20 }}>
+      <div className="createContainer">
         <h3>Create New Record</h3>
         <form onSubmit={this.onSubmit}>
           <div className="form-group">
