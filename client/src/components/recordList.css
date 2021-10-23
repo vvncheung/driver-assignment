@@ -16,6 +16,8 @@ a:hover {
   color: #5c8ca6;
 }
 
+.no-records,
+.assignedRecordsContainer,
 .unAssignedRecordsContainer {
   margin-right: 5em;
   margin-left: 5em;
@@ -33,6 +35,18 @@ a:hover {
   margin-left: 5em;
 }
 
+.no-records {
+  border-collapse: collapse;
+  margin: 25px 0;
+  font-size: 1.2em;
+  width: 525px;
+  max-width: 525px;
+  border-radius: 5px 5px 5px 5px;
+  overflow: hidden;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+  color: #404040;
+}
+ 
 .content-table {
   border-collapse: collapse;
   margin: 25px 0;
@@ -45,7 +59,8 @@ a:hover {
   color: #404040;
 }
 
-.content-table thead tr {
+.no-records, 
+.content-table thead tr   {
   background-color: #404040;
   color: #ffffff;
   text-align: center;
@@ -53,6 +68,7 @@ a:hover {
   text-transform: uppercase;
 }
 
+.no-records,
 .content-table th,
 .content-table td {
   padding: 12px 15px;
