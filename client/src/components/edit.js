@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import axios from 'axios';
 import { withRouter } from "react-router";
+import './edit.css'
 
 // description: req.body.description, --> name
 // driver: req.body.driver, --> position
@@ -18,14 +19,12 @@ class Edit extends Component {
     super(props);
  
     this.onChangeDescription = this.onChangeDescription.bind(this);
-    this.onChangeDriver = this.onChangeDriver.bind(this);
     this.onChangeRevenue = this.onChangeRevenue.bind(this);
     this.onChangeCost = this.onChangeCost.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
  
     this.state = {
       description: "",
-      driver: "",
       revenue: "",
       cost: "",
       records: [],
@@ -98,7 +97,7 @@ class Edit extends Component {
   // This following section will display the update-form that takes the input from the user to update the data.
   render() {
     return (
-      <div>
+      <div className="editContainer">
         <h3 align="center">Update Record</h3>
         <form onSubmit={this.onSubmit}>
           <div className="form-group">
@@ -107,16 +106,7 @@ class Edit extends Component {
               type="text"
               className="form-control"
               value={this.state.description}
-              onChange={this.onDescription}
-            />
-          </div>
-          <div className="form-group">
-            <label>Driver: </label>
-            <input
-              type="text"
-              className="form-control"
-              value={this.state.driver}
-              onChange={this.onChangeDriver}
+              onChange={this.onChangeDescription}
             />
           </div>
           <div className="form-group">
@@ -137,44 +127,6 @@ class Edit extends Component {
               onChange={this.onChangeCost}
             />
           </div>
-          {/* <div className="form-group">
-            <div className="form-check form-check-inline">
-              <input
-                className="form-check-input"
-                type="radio"
-                name="priorityOptions"
-                id="priorityLow"
-                value="Intern"
-                checked={this.state.person_level === "Intern"}
-                onChange={this.onChangePersonLevel}
-              />
-              <label className="form-check-label">Intern</label>
-            </div>
-            <div className="form-check form-check-inline">
-              <input
-                className="form-check-input"
-                type="radio"
-                name="priorityOptions"
-                id="priorityMedium"
-                value="Junior"
-                checked={this.state.person_level === "Junior"}
-                onChange={this.onChangePersonLevel}
-              />
-              <label className="form-check-label">Junior</label>
-            </div>
-            <div className="form-check form-check-inline">
-              <input
-                className="form-check-input"
-                type="radio"
-                name="priorityOptions"
-                id="priorityHigh"
-                value="Senior"
-                checked={this.state.person_level === "Senior"}
-                onChange={this.onChangePersonLevel}
-              />
-              <label className="form-check-label">Senior</label>
-            </div>
-          </div> */}
           <br />
  
           <div className="form-group">
