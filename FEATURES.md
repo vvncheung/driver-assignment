@@ -1,0 +1,2 @@
+- Data is persisted in MongoDB database
+- Ability to create orders
