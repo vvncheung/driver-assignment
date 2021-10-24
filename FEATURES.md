@@ -1,2 +1,4 @@
-- Data is persisted in MongoDB database
-- Ability to create orders
+- Data is persisted in MongoDB database. We do not lose data after browser refresh.
+- A user can create unassigned orders
+- A user can delete orders
+- A user can assign edit revenue/cost when order is assigned to a driver
