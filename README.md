@@ -1,5 +1,9 @@
 # driver-assignment
- This project was (a lot of fun!) to build with React.js, Node.js, Express, 
+ This project was (a lot of fun!) to build with React.js, Node.js, Express, and MongoDB.
+ 
+ Other packages used includes:
+ - React Hook Form
+ - Font Awesome
 
 ## Set up for viewing
 - Install all dependencies (using the `npm install` command) in main directory
