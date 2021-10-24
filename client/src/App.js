@@ -1,7 +1,7 @@
 import { Route } from "react-router-dom";
 
 import Navbar from "./components/navbar";
-import Edit from "./components/edit";
+import EditModal from "./components/edit";
 import Create from "./components/create";
 import RecordList from "./components/recordList";
 
@@ -14,7 +14,7 @@ export default function App()  {
       <Route exact path="/">
         <RecordList />
       </Route>
-      <Route path="/edit/:id" component={Edit} />
+      <Route path="/edit/:id" component={EditModal} />
       <Route path="/create">
         <Create />
       </Route>

@@ -11,7 +11,6 @@ const dbo = require("../db/conn");
 // This help convert the id from string to ObjectId for the _id.
 const ObjectId = require("mongodb").ObjectId;
 
-
 // This section will help you get a list of all the records.
 recordRoutes.route("/record").get((req, res) => {
   let db_connect = dbo.getDb("driverDataNew");
@@ -54,7 +53,7 @@ recordRoutes.route("/record/add").post((req, response) => {
 
 // This section will help you update a record by id.
 recordRoutes.route("/update/:id").post((req, response) => {
-  let db_connect = dbo.getDb();
+  let db_connect = dbo.getDb("driverDataNew");
   let myquery = { _id: ObjectId( req.params.id )};
   let newvalues = {
     $set: {

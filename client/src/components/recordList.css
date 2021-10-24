@@ -12,7 +12,14 @@ a {
   color: #404040;
 }
 
-a:hover {
+.tableButton {
+  background: #fff;
+  border: none;
+  color: #404040;
+  font-size: 1.2em;
+}
+
+.tableButton:hover {
   color: #5c8ca6;
 }
 
@@ -33,7 +40,6 @@ a:hover {
   gap: 20px;
 }
 
- 
 .no-records,
 .content-table {
   border-collapse: collapse;
@@ -43,8 +49,8 @@ a:hover {
   max-width: 550px;
   border-radius: 5px 5px 0 0;
   overflow: hidden;
-  /* box-shadow: 0 0 20px rgba(0, 0, 0, 0.15); */
   color: #404040;
+  margin-bottom: 2.5em;
 }
 
 .no-records, 
@@ -66,12 +72,9 @@ tr {
   border: 1px solid #dddddd;
 }
 
+
 /* .content-table tbody tr:nth-of-type(even) {
   background-color: #fff;
-} */
-
-/* .content-table tbody tr:last-of-type {
-  border-bottom: 2px solid #404040;
 } */
 
 tfoot {

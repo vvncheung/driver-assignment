@@ -1,30 +1,53 @@
 import { useForm } from "react-hook-form";
+// import axios from "axios";
 import './edit.css';
+import '../styles/button.css'
 
-function EditModal(props) {
+export default function EditModal(props) {
 
-  const {register, handleSubmit} = useForm();
+  const {register, handleSubmit, formState: {errors}} = useForm();
 
   const onSubmit = (data) => {
+    // NOT WORKING -- this method should update database
+    // axios.post('http://localhost:5000/update/' + props.orderID, {
+    //     revenue: data.revenue,
+    //     cost: data.cost
+    //   }
+    //   .then((res) => {
+    //     console.log(res);
+    //     })
+    //   )
     console.log(data)
+    props.setRecords(oldRecords => {
+      let newRecords = JSON.parse(JSON.stringify(oldRecords)); 
+      newRecords[props.driverIndex].records[props.itemIndex].revenue = data.revenue;
+      newRecords[props.driverIndex].records[props.itemIndex].cost = data.cost;
+      return newRecords;
+    }) 
+    props.setTrigger(false);
   }
 
-return (
-  <form onSubmit={handleSubmit(onSubmit)}>
-    <div className="form-inner">
-    Description: {props.description}
-    Revenue: <input type="number" placeholder={props.revenue} name="revenue" ref={register}/>
-    Cost: <input type="number" placeholder={props.revenue} name="revenue" ref={register}/>
-    </div>
-  </form>
-
-)
 
 
+return (props.trigger) ? (
+  <div className="modalContainer">
+    <button className="closeModal" onClick={() => props.setTrigger(false)}>x</button>
+    <form onSubmit={handleSubmit(onSubmit)}>
+      <div className="modalTitle">
+      placeholder{props.description}
+      </div>
+        <span className="errorMessage">{errors.revenue && "Please enter revenue to continue."}</span><br/>
+        <span className="errorMessage">{errors.cost && "Please enter cost to continue."}</span><br/>
+      <div>
+        <span className="modalTextFieldHeaders">Revenue:&nbsp; $</span>  <input className="modalTextFields" type="number" placeholder={props.revenue} name="revenue" {...register('revenue', { required: true })}/><br/>
+        <span className="modalTextFieldHeaders">Cost: &nbsp;$</span>  <input className="modalTextFields" type="number" placeholder={props.cost} name="cost" {...register('cost', { required: true })}/><br/>
+        <button className="modalButton" type="submit">Update record</button>
+      </div>
+    </form>
+  </div>
+    
+  ): "";
 }
-
-export default EditModal;
-
 
 
 // import axios from 'axios';

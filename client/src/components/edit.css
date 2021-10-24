@@ -1,3 +1,67 @@
-.editContainer {
+.modalContainer {
   margin-top: 120px;
+  font-size: 1.275em;
+  color: #404040;
 }
+
+.closeModal {
+  color: ;
+  font-weight: 700;
+}
+
+input, textarea {
+  color: #404040;
+}
+
+.modalTitle {
+  text-align: center;
+  font-size: x-large;
+  text-transform: uppercase;
+}
+
+.errorMessage {
+  margin-bottom: 2.5em;
+  text-transform: uppercase;
+  color: rgb(255, 110, 110);
+  font-size: smaller;
+}
+
+.modalTextFieldHeaders {
+  font-size: large;
+  text-transform: uppercase;
+}
+
+.numberSign {
+  font-style: italic;
+  margin-right: 0.5em; 
+}
+
+input[type=text],
+input[type=number]
+ {
+  padding: 10px;
+  margin:10px 0;
+  font-size: 1.275em;
+}
+
+.modalTextFields {
+  border: thin solid #eee;
+  border-radius: 0.1rem;
+  margin-bottom: 0.8rem;
+  font-size: 1.em;
+}
+
+/* remove arrow bars on text fields */
+/* chrome, safari, edge, opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* chrome, safari, edge, opera */
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
