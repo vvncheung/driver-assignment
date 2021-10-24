@@ -16,3 +16,4 @@
 ## Known bugs:
 - Occasional stutter after dropping item in new column
 - Drag and drop of record will succeed only if dropped on top of 'drag' icon on top of intended placement
+- Data persists on the front end as there are SSL issues with post to MongoDB Atlas
