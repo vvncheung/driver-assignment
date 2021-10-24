@@ -1,9 +1,10 @@
 # driver-assignment
  This project was (a lot of fun!) to build with React.js, Node.js, Express, and MongoDB.
  
- Other packages used includes:
- - React Hook Form
+ Other dependencies include:
+ - React-Hook-Form
  - Font Awesome
+ - Axios
 
 ## Set up for viewing
 - Install all dependencies (using the `npm install` command) in main directory
@@ -13,4 +14,4 @@
 
 ## Known bugs:
 - Occasional stutter after dropping item in new column
-- Drag and drop will succeed only if dropped on top of 'drag' button
+- Drag and drop of record will succeed only if dropped on top of 'drag' icon on top of intended placement
