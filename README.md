@@ -9,7 +9,7 @@
 ## Set up for viewing
 - Fork and clone this repository
 - Use the `npm install` command in the root directory to install dependencies
-- To setup access to the database, create a `config.env` file in the server directory with the following blurb, replacing `<myGitHubUsername>` with my github username and `<yourCompanyName>` with your company name (no spaces, all lowercase)
+- To setup access to the database, create a `config.env` file in the server directory with the following blurb, replacing `<myGitHubUsername>` with my github username `vvncheung` and `<yourCompanyName>` with your company name (`roserocket`)
 ```
 ATLAS_URI=mongodb+srv://<myGithubUsername>:<yourCompanyName>@cluster0.h4cne.mongodb.net/driverDataNew?retryWrites=true&w=majority
 PORT=5000
