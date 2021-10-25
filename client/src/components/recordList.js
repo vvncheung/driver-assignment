@@ -213,7 +213,7 @@ export default function RecordList() {
         <div className="unAssignedRecordsContainer">
           <table className="content-table">
             <caption>Unassigned Orders</caption>
-            <thead>
+            <thead onDragEnter={dragging?(e) => {handleDragEnter(e, records[0]._id, 0)}:null}>
               <tr>
               <th>&nbsp;</th>
                 <th>Description</th>
