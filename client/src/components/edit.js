@@ -5,6 +5,10 @@ import './edit.css';
 import './styles/button.css'
 
 export default function EditModal(props) {
+  const [record, setRecords] = useState([]);
+  const [allRecords, setAllRecords] = useState([]);
+
+  const {register, handleSubmit, formState: {errors}} = useForm();
 
   const findIndexByID = (array, id) => {
     for (let i = 0; i < array.length; i++) {
@@ -14,46 +18,32 @@ export default function EditModal(props) {
     }
   }
 
-  console.log('props',props)
+  // This will get the record based on the id from the database.
+  useEffect(() => {
+    axios
+      .get("http://localhost:5000/record/" + props.match.params.driverID)
+      .then((response) => {
 
-  const [record, setRecords] = useState([]);
-  const [allRecords, setAllRecords] = useState([]);
+        let itemIndex = findIndexByID(response.data.records, props.match.params.orderID);
 
-  const {register, handleSubmit, formState: {errors}} = useForm();
-
-
-    // This will get the record based on the id from the database.
-    useEffect(() => {
-      axios
-        .get("http://localhost:5000/record/" + props.match.params.driverID)
-        .then((response) => {
-          console.log('response',response)
-
-          let itemIndex = findIndexByID(response.data.records, props.match.params.orderID);
-          console.log('itemIndex',itemIndex)
-
-          setRecords({
-            description: response.data.records[itemIndex].description,
-            revenue: response.data.records[itemIndex].revenue,
-            cost: response.data.records[itemIndex].cost
-          });
-
-          setAllRecords({
-            arrayOfRecords: response.data.records
-          });
-
-          console.log('record',record)
-        })
-        .catch(function (error) {
-          console.log(error);
+        setRecords({
+          description: response.data.records[itemIndex].description,
+          revenue: response.data.records[itemIndex].revenue,
+          cost: response.data.records[itemIndex].cost
         });
-    }, [props, record])
 
-    console.log('allrecords', allRecords)
+        setAllRecords({
+          arrayOfRecords: response.data.records
+        });
+
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+    }, [props, record])
 
     
   const onSubmit = (data) => {
-    // console.log(data);
     const editedItem = {
       description: record.description,
       revenue: data.revenue,
@@ -70,7 +60,6 @@ export default function EditModal(props) {
         if (newUpdatedArray[i].orderID === orderIdToUpdate) {
           newUpdatedArray[i] = editedItem;
         }
-        console.log(newUpdatedArray)
       }
       return newUpdatedArray;
   };
@@ -86,8 +75,6 @@ export default function EditModal(props) {
         window.location = "/";
       })
     };
-
-   
 
 return (
   <div className="modalContainer">
