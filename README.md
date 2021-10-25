@@ -15,5 +15,3 @@
 
 ## Known bugs:
 - Occasional stutter/lag after dropping item in new driver table
-- Drag and drop of record will succeed only if dropped on top of 'drag' icon of intended placement
-- Assigning driver data does not persist after browser refresh (but edit does)
