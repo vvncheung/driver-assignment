@@ -114,10 +114,11 @@ export default function RecordList() {
       className={dragging?getStyles(currentrecord.driverID, currentrecord.record.orderID):"active-row"}>
       <td><FontAwesomeIcon icon={faBars}/></td>
       <td onDragEnter={(e) => { preventDrag(e)}}>{currentrecord.record.description}</td>
-      <td onDragEnter={(e) => { preventDrag(e)}}className="revenue">{currentrecord.record.revenue}</td>
-      <td onDragEnter={(e) => { preventDrag(e)}}className="cost">{currentrecord.record.cost}</td>
+      <td onDragEnter={(e) => { preventDrag(e)}}className="revenue">&#36;&nbsp;{currentrecord.record.revenue}</td>
+      <td onDragEnter={(e) => { preventDrag(e)}}className="cost">&#36;&nbsp;{currentrecord.record.cost}</td>
       <td onDragEnter={(e) => { preventDrag(e)}}className="actionButtons"> 
-        <Link to={"/edit/" + currentrecord.record._id}><FontAwesomeIcon icon={faEdit}/></Link> &nbsp;
+        <Link to={"/edit/" + currentrecord.driverID + '/' + currentrecord.record.orderID}
+          ><FontAwesomeIcon icon={faEdit}/></Link> &nbsp;
         <a
           href="/"
           onClick={() => {

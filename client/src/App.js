@@ -14,7 +14,7 @@ export default function App()  {
       <Route exact path="/">
         <RecordList />
       </Route>
-      <Route path="/edit/:id" component={EditModal} />
+      <Route path="/edit/:driverID/:orderID" component={EditModal} />
       <Route path="/create">
         <Create />
       </Route>
