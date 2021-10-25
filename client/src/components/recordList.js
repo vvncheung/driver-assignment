@@ -76,10 +76,10 @@ export default function RecordList() {
     }
   };
 
-  const preventDrag = (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-  };
+  // const preventDrag = (e) => {
+  //   e.preventDefault();
+  //   e.stopPropagation();
+  // };
 
   // assign style class to current dragging row
   const getStyles = (driverID, orderID) => {
@@ -99,7 +99,7 @@ export default function RecordList() {
 
   // This method will delete a record based on the method
   // function deleteRecord(driverID, orderID) {
-  //   axios.delete("http://localhost:5000/" + driverID + '/' + orderID).then((response) => {
+  //   axios.update("http://localhost:5000/" + driverID + '/' + orderID).then((response) => {
   //     setRecords(response.data);
   //     updateData();
   //   });
@@ -120,14 +120,14 @@ export default function RecordList() {
       <td className="actionButtons"> 
         <Link to={"/edit/" + currentrecord.driverID + '/' + currentrecord.record.orderID}
           ><FontAwesomeIcon icon={faEdit}/></Link> &nbsp;
-        <a
+        {/* <a
           href="/"
           onClick={() => {
             currentrecord.deleteRecord(currentrecord.driverID, currentrecord.record.orderID);
           }}
         >
           <FontAwesomeIcon icon={faTrashAlt}/>
-        </a>
+        </a> */}
       </td>
     </tr>
   ); 
@@ -162,7 +162,7 @@ export default function RecordList() {
                 <th>Description</th>
                 <th>Revenue</th>
                 <th>Cost</th>
-                <th>Action</th>
+                <th>Edit</th>
               </tr>
             </thead>
             <tbody>
@@ -219,7 +219,7 @@ export default function RecordList() {
                 <th>Description</th>
                 <th>Revenue</th>
                 <th>Cost</th>
-                <th>Action</th>
+                <th>Edit</th>
               </tr>
             </thead>
             <tbody>{unassignedList()}</tbody>
