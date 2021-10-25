@@ -14,6 +14,6 @@
 - If the app does not run automatically, browse to http://localhost:3000/ in your browser of choice (Chrome recommended!)
 
 ## Known bugs:
-- Occasional stutter after dropping item in new column
-- Drag and drop of record will succeed only if dropped on top of 'drag' icon on top of intended placement
-- Data persists on the front end as there are SSL issues with post to MongoDB Atlas
+- Occasional stutter/lag after dropping item in new driver table
+- Drag and drop of record will succeed only if dropped on top of 'drag' icon of intended placement
+- Assigning driver data does not persist after browser refresh (but edit does)
