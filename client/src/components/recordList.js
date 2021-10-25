@@ -4,10 +4,9 @@ import './recordList.css';
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEdit, faBars, faTrashAlt } from '@fortawesome/free-solid-svg-icons'
-import EditModal from './edit';
+// import EditModal from './edit';
 
 export default function RecordList() {
-
   const url = "http://localhost:5000/record/";
   const [records, setRecords] = useState([]);
 
@@ -19,10 +18,6 @@ export default function RecordList() {
   // reference to specific node, for drag end
   const dragItemNode = useRef();
 
-  // popup modals
-  const [popUpModule, setPopUpModule] = useState(false);
-
-
   // start drag
   const handleDragStart = (e, driverID, orderID) => {
     console.log('drag starting...', driverID, orderID)
@@ -31,6 +26,7 @@ export default function RecordList() {
     dragItemNode.current = e.target;
     dragItemNode.current.addEventListener('dragend', handleDragEnd)
     dragItem.current = params;
+
     setTimeout(() => {
       setDragging(true); 
     },0)  
@@ -38,19 +34,19 @@ export default function RecordList() {
 
   const handleDragEnter = (e, driverID, orderID) => {
     console.log('entering drag...', driverID, orderID);
-    const driverIndex = findIndexByID(records, driverID, '_id')
-    const itemIndex = findIndexByID(records[driverIndex].records, orderID, 'orderID');
-    const dragdriverIndex = findIndexByID(records, dragItem.current.driverID, '_id')
-    const dragitemIndex = findIndexByID(records[dragdriverIndex].records, dragItem.current.orderID, 'orderID');
+    const grpI = findIndexByID(records, driverID, '_id')
+    const itemI = findIndexByID(records[grpI].records, orderID, 'orderID');
+    const dragGrpI = findIndexByID(records, dragItem.current.driverID, '_id')
+    const dragItemI = findIndexByID(records[dragGrpI].records, dragItem.current.orderID, 'orderID');
     // const currentItem = dragItem.current;
     if (dragItemNode.current !== e.target) {
 
       setRecords(oldRecords => {
         let newRecords = JSON.parse(JSON.stringify(oldRecords)); // creates deep copy of records instead of shallow ... destructuring copy
-        newRecords[driverIndex].records.splice(itemIndex, 0, newRecords[dragdriverIndex].records.splice(dragitemIndex,1)[0]);
+
+        newRecords[grpI].records.splice(itemI, 0, newRecords[dragGrpI].records.splice(dragItemI,1)[0]);
 
         dragItem.current = {driverID, orderID};
-        // updateRecords();
         return newRecords;
       })
      }
@@ -63,6 +59,12 @@ export default function RecordList() {
       }
     }
   }
+
+  // const updateDriverRecords = (records, driverIndex, newRecord) => {
+  //   console.log('would update record now');
+  //   return records[driverIndex].records.splice(0, 0, newRecord) 
+  // }
+
 
   const handleDragEnd = (e) => {
     console.log('drag ending...')
@@ -97,16 +99,6 @@ export default function RecordList() {
     });
   }
 
-  // NOT WORKING -- this method will update the database
-  // function updateRecords(){
-  //   records.forEach(record => {
-  //     axios.post('https://localhost:5000/update/' + record._id, record, {
-  //     }).then(res => {
-  //       console.log('updates database');
-  //     })
-  //   })
-  // }
-
   const preventDrag = (e) => {
     e.preventDefault();
     e.stopPropagation();
@@ -125,11 +117,15 @@ export default function RecordList() {
       <td onDragEnter={(e) => { preventDrag(e)}}className="revenue">{currentrecord.record.revenue}</td>
       <td onDragEnter={(e) => { preventDrag(e)}}className="cost">{currentrecord.record.cost}</td>
       <td onDragEnter={(e) => { preventDrag(e)}}className="actionButtons"> 
-      <button onClick={() => setPopUpModule(currentrecord.record.orderID)} className="tableButton">
-          <FontAwesomeIcon icon={faEdit}/>
-        </button>
-      <button onClick={() => setPopUpModule(currentrecord.record.orderID)} className="tableButton">
-        <FontAwesomeIcon icon={faTrashAlt}/></button>
+        <Link to={"/edit/" + currentrecord.record._id}><FontAwesomeIcon icon={faEdit}/></Link> &nbsp;
+        <a
+          href="/"
+          onClick={() => {
+            currentrecord.deleteRecord(currentrecord.record._id);
+          }}
+        >
+          <FontAwesomeIcon icon={faTrashAlt}/>
+        </a>
       </td>
     </tr>
   ); 
@@ -141,26 +137,15 @@ export default function RecordList() {
     if (unassignedRecords.length > 0) {
       return unassignedRecords[0]['records'].map((currentrecord) => { 
         return (
-          <>
           <Record
           record={currentrecord}
           deleteRecord={deleteRecord}
           key={currentrecord.orderID}
           driverID={unassignedRecords[0]['_id']}
           />
-          <popUpModule
-          description={currentrecord.description}
-          revenue={currentrecord.revenue}
-          cost={currentrecord.cost}
-          orderId={currentrecord.orderID}
-          trigger={(popUpModule === currentrecord.orderID)? true : false}
-          setRecords={setRecords}
-          setTrigger={setPopUpModule}
-        />
-        </>
-       );
+          );
         })
-    } else return null;
+    } return null;
   }
 
   // this method will map to create tables for all drivers (assignedList container)
@@ -198,7 +183,7 @@ export default function RecordList() {
         <>
           <table className="content-table">
             <caption>Driver: {driver.driver}</caption>
-            <thead onDragEnter={dragging?(e) => {handleDragEnter(e, driver._id, 0)}:null}>
+            <thead>
                 <tr>
                   <th>No assignments for this driver.</th>
                 </tr>
@@ -249,4 +234,3 @@ export default function RecordList() {
   
   )
 }
-

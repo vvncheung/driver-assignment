@@ -1,7 +1,7 @@
 import { useForm } from "react-hook-form";
-// import axios from "axios";
+import axios from "axios";
 import './edit.css';
-import '../styles/button.css'
+import './styles/button.css'
 
 export default function CreateModal(props) {
 
@@ -24,36 +24,44 @@ export default function CreateModal(props) {
       newRecords[props.driverIndex].records[props.itemIndex].description = data.description;
       newRecords[props.driverIndex].records[props.itemIndex].revenue = data.revenue;
       newRecords[props.driverIndex].records[props.itemIndex].cost = data.cost;
+      console.log(newRecords);
+
       return newRecords;
     }) 
   }
 
-
-
 return (
   <div className="modalContainer">
-    <button className="closeModal" onClick={() => props.setTrigger(false)}>x</button>
     <form onSubmit={handleSubmit(onSubmit)}>
+      <div>
       <div className="modalTitle">
         Add new record
       </div>
-        <span className="errorMessage">{errors.revenue && "Please enter description to continue."}</span><br/>
-        <span className="errorMessage">{errors.revenue && "Please enter revenue to continue."}</span><br/>
-        <span className="errorMessage">{errors.cost && "Please enter cost to continue."}</span><br/>
-        <div className="modalForm">
-          <span className="modalTextFieldHeaders">Description</span><br/>
+
+      <div className="modalForm">
+
+        <div className="inputDiv">
+          <span className="errorMessage">{errors.description && "Please enter description to continue."}</span><br/>
+          <span className="modalTextFieldHeaders">Description</span>&nbsp;&nbsp;
           <input className="modalTextFields" type="text" placeholder={props.description} name="description" {...register('description', { required: true })}/><br/>
-          
-          <span className="modalTextFieldHeaders">Revenue</span><br/>  
+        </div>
+        <div className="inputDiv">
+          <span className="errorMessage">{errors.revenue && "Please enter revenue to continue."}</span><br/>
+          <span className="modalTextFieldHeaders">Revenue</span>&nbsp;&nbsp;
           <span className="numberSign">$</span><input className="modalTextFields" type="number" placeholder={props.revenue} name="revenue" {...register('revenue', { required: true })}/><br/>
-          
-          <span className="modalTextFieldHeaders">Cost</span><br/>
+        </div>
+
+        <div className="inputDiv">
+          <span className="errorMessage">{errors.cost && "Please enter cost to continue."}</span><br/>
+          <span className="modalTextFieldHeaders">Cost</span> &nbsp;&nbsp;
           <span className="numberSign">$</span><input className="modalTextFields" type="number" placeholder={props.cost} name="cost" {...register('cost', { required: true })}/><br/>
         </div>
-        <button className="modalButton" type="submit">Add new record</button>
+
+      </div>
+      <button className="modalButton" type="submit">Add new record</button>
+    </div>
     </form>
-  </div>
-    
+  </div> 
   )
 }
 

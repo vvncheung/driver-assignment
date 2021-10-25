@@ -20,8 +20,8 @@ export default function Navbar() {
 
         <div>
             <NavLink className="nav-link" to="/create">
-            <button className="createNewRecordButton"><FontAwesomeIcon icon={faPlus}/> &nbsp;Add record </button>
-              </NavLink>
+              <button className="createNewRecordButton"><FontAwesomeIcon icon={faPlus}/> &nbsp;Add record </button>
+            </NavLink>
         </div>
       </nav>
 
