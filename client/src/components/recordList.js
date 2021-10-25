@@ -18,7 +18,6 @@ export default function RecordList() {
   // reference to specific node, for drag end
   const dragItemNode = useRef();
 
-  // start drag
   const handleDragStart = (e, driverID, orderID) => {
     console.log('drag starting...', driverID, orderID)
     const params = {driverID, orderID}
@@ -38,9 +37,7 @@ export default function RecordList() {
     const itemI = findIndexByID(records[grpI].records, orderID, 'orderID');
     const dragGrpI = findIndexByID(records, dragItem.current.driverID, '_id')
     const dragItemI = findIndexByID(records[dragGrpI].records, dragItem.current.orderID, 'orderID');
-    // const currentItem = dragItem.current;
     if (dragItemNode.current !== e.target) {
-
       setRecords(oldRecords => {
         let newRecords = JSON.parse(JSON.stringify(oldRecords)); // creates deep copy of records instead of shallow ... destructuring copy
 
@@ -52,26 +49,36 @@ export default function RecordList() {
      }
   };
 
+  useEffect(() => {
+    records.forEach((driver) => {
+      axios
+      .post('http://localhost:5000/update/' + driver._id, { records: driver.records })
+      .then(res => {
+        console.log(res);
+      })
+    })
+  })
+
+  const handleDragEnd = (e) => {
+    console.log('drag ending...')
+    setDragging(false);
+      
+    dragItem.current = null;
+    dragItemNode.current.removeEventListener('dragend', handleDragEnd)
+    dragItemNode.current = null;
+  };
+
   const findIndexByID = (array, id, idKey) => {
     for (let i = 0; i < array.length; i++) {
       if (array[i][idKey] === id) {
         return i;
       }
     }
-  }
+  };
 
-  // const updateDriverRecords = (records, driverIndex, newRecord) => {
-  //   console.log('would update record now');
-  //   return records[driverIndex].records.splice(0, 0, newRecord) 
-  // }
-
-
-  const handleDragEnd = (e) => {
-    console.log('drag ending...')
-    setDragging(false);
-    dragItem.current = null;
-    dragItemNode.current.removeEventListener('dragend', handleDragEnd)
-    dragItemNode.current = null;
+  const preventDrag = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
   };
 
   // assign style class to current dragging row
@@ -84,45 +91,39 @@ export default function RecordList() {
   }
 
   // this method will get the data from the database.
-  const updateData = useEffect(() => {
+ useEffect(() => {
     axios.get(url).then(res => {
       setRecords(res.data);
     })
   }, [])
 
   // This method will delete a record based on the method
-  function deleteRecord(id) {
-    axios.delete("http://localhost:5000/" + id).then((response) => {
-      // console.log(response.data);
-      setRecords(response.data);
-    updateData();
-    });
-  }
-
-  const preventDrag = (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-  }
+  // function deleteRecord(driverID, orderID) {
+  //   axios.delete("http://localhost:5000/" + driverID + '/' + orderID).then((response) => {
+  //     setRecords(response.data);
+  //     updateData();
+  //   });
+  // }
 
   // this method will map out the rows of each table
   const Record = (currentrecord) => (
     <tr 
       draggable 
       onDragStart={(e) => {handleDragStart(e, currentrecord.driverID, currentrecord.record.orderID)}}
-      onDragEnter={dragging?(e) => {handleDragEnter(e, currentrecord.driverID, currentrecord.record.orderID)}:null}
+      onDragEnter={dragging?(e) => {handleDragEnter(e, currentrecord.driverID, 0)}:null}
       key={currentrecord.record.orderID} 
       className={dragging?getStyles(currentrecord.driverID, currentrecord.record.orderID):"active-row"}>
       <td><FontAwesomeIcon icon={faBars}/></td>
-      <td onDragEnter={(e) => { preventDrag(e)}}>{currentrecord.record.description}</td>
-      <td onDragEnter={(e) => { preventDrag(e)}}className="revenue">&#36;&nbsp;{currentrecord.record.revenue}</td>
-      <td onDragEnter={(e) => { preventDrag(e)}}className="cost">&#36;&nbsp;{currentrecord.record.cost}</td>
-      <td onDragEnter={(e) => { preventDrag(e)}}className="actionButtons"> 
+      <td>{currentrecord.record.description}</td>
+      <td className="revenue">&#36;&nbsp;{currentrecord.record.revenue}</td>
+      <td className="cost">&#36;&nbsp;{currentrecord.record.cost}</td>
+      <td className="actionButtons"> 
         <Link to={"/edit/" + currentrecord.driverID + '/' + currentrecord.record.orderID}
           ><FontAwesomeIcon icon={faEdit}/></Link> &nbsp;
         <a
           href="/"
           onClick={() => {
-            currentrecord.deleteRecord(currentrecord.record._id);
+            currentrecord.deleteRecord(currentrecord.driverID, currentrecord.record.orderID);
           }}
         >
           <FontAwesomeIcon icon={faTrashAlt}/>
@@ -133,14 +134,13 @@ export default function RecordList() {
 
   // this method will map out the unassigned records on the table
   function unassignedList() {
-    // console.log('records', records)
     const unassignedRecords = records.filter(record => record.driver === 'unassigned');
     if (unassignedRecords.length > 0) {
       return unassignedRecords[0]['records'].map((currentrecord) => { 
         return (
           <Record
           record={currentrecord}
-          deleteRecord={deleteRecord}
+          // deleteRecord={deleteRecord}
           key={currentrecord.orderID}
           driverID={unassignedRecords[0]['_id']}
           />
@@ -170,7 +170,7 @@ export default function RecordList() {
               return (
                 <Record
                 record={currentrecord}
-                deleteRecord={deleteRecord}
+                // deleteRecord={deleteRecord}
                 key={currentrecord.orderID}
                 driverID={driver._id}
                 />
@@ -184,7 +184,7 @@ export default function RecordList() {
         <>
           <table className="content-table">
             <caption>Driver: {driver.driver}</caption>
-            <thead>
+            <thead onDragEnter={dragging?(e) => {handleDragEnter(e, driver._id, 0)}:null}>
                 <tr>
                   <th>No assignments for this driver.</th>
                 </tr>
