@@ -15,3 +15,4 @@
 
 ## Known bugs:
 - Occasional stutter/lag after dropping item in new driver table
+- Number inputs in create / edit forms will not accept decimal points due to the "Number" type restriction as RegEx as pattern will not work (use whole numbers only) 
